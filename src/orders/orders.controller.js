@@ -102,8 +102,8 @@ function validateId(req, res, next) {
 if (!req.body.data.id || req.body.data.id === "") {
  return next();
 }
- else if (req.body.data.id != foundSingleOrder.id)    {
-next({ status: 400, message: `Order id does not match route id. Order: ${req.body.data.id}, Route: ${foundSingleOrder.id}` });
+ else if (req.body.data.id != res.locals.order.id)    {
+next({ status: 400, message: `Order id does not match route id. Order: ${req.body.data.id}, Route: ${res.locals.order.id}` });
 } 
 
 else
@@ -155,7 +155,7 @@ function update(req, res) {
     const { data: { deliverTo, mobileNumber, status, dishes } = {} } = req.body;
   
       const updateOrder = {
-          id: orderId,
+          id: res.locals.order.id,
           deliverTo: deliverTo,
           mobileNumber: mobileNumber,
           status: status,
